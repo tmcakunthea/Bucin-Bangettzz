@@ -102,11 +102,18 @@
     imageHeight: 90,
   });
   
-  audio = new Audio('' + linkmp3.src);
-  ftganti=0;
-  fungsi=0;
-  fungsiAwal=0;
-  deffotostiker=fotostiker.src;
+  const audio = document.getElementById('linkmp3');
+
+  // Event listener untuk mendeteksi saat audio selesai
+  audio.addEventListener('ended', function() {
+      this.currentTime = 0; // Mengatur ulang waktu audio ke awal
+      this.play(); // Memainkan kembali audio
+  }, false);
+
+  let ftganti = 0;
+  let fungsi = 0;
+  let fungsiAwal = 0;
+  let deffotostiker = fotostiker.src;
   Content.style = "opacity:1;margin-top:16vh"; 
   const swals = Swal.mixin({
     allowOutsideClick: false,
@@ -115,21 +122,21 @@
   });
 
   document.getElementById("kadoIn").onclick = function() {
-    if(fungsiAwal==0){
+    if (fungsiAwal == 0) {
       audio.play();
-      fungsiAwal=1;
-      kadoIn.style="transition:all .8s ease;transform:scale(10);opacity:0";
-      wallpaper.style="transform: scale(1.5);";
-      ket.style="display:none";
-      setTimeout(initengahan,300);
-      setTimeout(inipesan,500);
+      fungsiAwal = 1;
+      kadoIn.style = "transition:all .8s ease;transform:scale(10);opacity:0";
+      wallpaper.style = "transform: scale(1.5);";
+      ket.style = "display:none";
+      setTimeout(initengahan, 300);
+      setTimeout(inipesan, 500);
     }
-  }
+  };
 
-  async function inipesan(){
+  async function inipesan() {
     let nama = "Sayangku, Cintaku (Sang Ratu, Aan Daryani)";
     window.nama = nama;
-    vketikhalo="Hai, " + nama + " ❤️";
+    vketikhalo = "Hai, " + nama + " ❤️";
     mulainama();
   }
 
@@ -139,7 +146,7 @@
   var tompositif = 'Cayank';
   var tomnegatif = 'Engga';
   
-  async function pertanyaan(){
+  async function pertanyaan() {
     var { isConfirmed: prtanya } = await swals.fire({
       title: nama + ' ' + tanya,
       text: '' + opstanya,
@@ -148,7 +155,7 @@
       confirmButtonText: '' + tompositif,
       cancelButtonText: '' + tomnegatif,
     });
-    if(prtanya){
+    if (prtanya) {
       pesanwhatsapp = "Iyaa Dede Aan sayang kamu juga kok! ><";
       menuju(pesanwhatsapp);
     } else {
@@ -158,7 +165,7 @@
     }
   }
 
-  function menuju(pesan){
+  function menuju(pesan) {
     const whatsappNumber = "6283116298780";
     const encodedMessage = encodeURIComponent(pesan);
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
